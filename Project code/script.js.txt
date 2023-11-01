@@ -1,0 +1,40 @@
+// script.js
+
+// Function to handle video upload
+document.getElementById('upload-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const videoFile = document.getElementById('video-file').files[0];
+    const videoTitle = document.getElementById('video-title').value;
+
+    // Perform video upload to your server
+    // You would send the video file to your back-end for processing and integration with IBM Cloud Video Streaming
+    // Implement AJAX or fetch to send the video to the server
+    // Example: fetch('/upload-video', {
+    //     method: 'POST',
+    //     body: videoFile,
+    //     headers: {
+    //         'Content-Type': 'video/*',
+    //     },
+    // });
+
+    // After successful upload, you can update the video library with the new video
+    const videoList = document.getElementById('video-list');
+    const newVideoItem = document.createElement('div');
+    newVideoItem.innerHTML = `
+        <video width="200" controls>
+            <source src="PATH_TO_VIDEO" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <p>${videoTitle}</p>
+    `;
+    videoList.appendChild(newVideoItem);
+});
+
+// Function to play selected video
+document.getElementById('video-list').addEventListener('click', function (e) {
+    if (e.target.tagName === 'VIDEO') {
+        const player = document.getElementById('player');
+        player.src = e.target.querySelector('source').src;
+        player.load();
+    }
+});
